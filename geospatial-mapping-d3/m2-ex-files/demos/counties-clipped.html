@@ -1,0 +1,46 @@
+<html>
+
+<head>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <h1>Counties Clipped</h1>
+    <p>use ogr2ogr to change the bounding box (eg. window) at which you're looking at the map. I found the bounding box here at http://bit.ly/flicker-geo-api for California, USA.</p>
+
+    <code>$ ogr2ogr -f GeoJSON counties-clipped.json build/cb_2014_us_county_20m.shp -clipsrc -124.4096 32.5343 -114.1308 42.0095</code>
+    <script>
+        //Width and height
+        var w = window.innerWidth;
+        var h = window.innerHeight;
+
+
+        //Define path generator
+        var path = d3.geo.path();
+
+        //Create SVG element
+        var svg = d3.select("body").append("svg").attr({
+            width: w,
+            height: h
+        });
+
+        //Load in GeoJSON data
+        d3.json("http://localhost:8000/counties-clipped.json", function(json) {
+
+            //Bind data and create one path per GeoJSON feature
+            svg.selectAll("path")
+                .data(json.features)
+                .enter()
+                .append("path")
+                .attr("d", path)
+                .attr("fill", "#666666");
+
+        });
+    </script>
+</body>
+
+</html>

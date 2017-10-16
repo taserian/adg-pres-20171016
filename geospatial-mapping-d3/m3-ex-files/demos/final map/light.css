@@ -1,0 +1,73 @@
+.land {
+  fill: #e5e5e5;
+}
+
+.border {
+  fill: none;
+  stroke: #fff;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.bubble {
+  fill: #F15B2A; /*  PS Orange */
+  fill-opacity: .5;
+  stroke: #fff;
+  stroke-width: .5px;
+}
+
+.bubble :hover {
+  stroke: #000;
+}
+
+.legend circle {
+  fill: none;
+  stroke: #ccc;
+}
+
+.legend text {
+  fill: #777;
+  font: 10px sans-serif;
+  text-anchor: middle;
+}
+
+.tooltip {
+  position: absolute;
+  max-width: 400px;
+  height: auto;
+  padding: 5px;
+  background-color: white;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  pointer-events: none; /* MUY IMPORTANTE! */
+  font-family: sans-serif;
+  font-size:12px;
+}
+
+.y-axis path,
+.y-axis line {
+    fill: none;
+    stroke: #666;
+    color: #666;
+    shape-rendering: crispEdges;
+}
+
+.x-axis path, .x-axis line{
+  display:none;
+  color: #666;
+}
+
+.x-axis, .y-axis text {
+    font-family: sans-serif;
+    font-size: 10px;
+    color: #666;
+    fill: #666;
+
+}
+.bar {
+  fill: #666;
+}

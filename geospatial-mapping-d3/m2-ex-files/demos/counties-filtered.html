@@ -1,0 +1,45 @@
+<html>
+
+<head>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <h1>Counties Filtered</h1>
+    <p>use ogr2ogr for filtering the data down to just California. Find the state fips code here (http://bit.ly/usa-fips) and use ogrinfo -al -so build/cb_2014_us_county_20m.shp to see all the attributes of the file</p>
+    <code>$ ogr2ogr -f GeoJSON counties-filtered.json build/cb_2014_us_county_20m.shp -where "STATEFP='06'"</code>
+    <script>
+        //Width and height
+        var w = window.innerWidth;
+        var h = window.innerHeight;
+
+
+        //Define path generator
+        var path = d3.geo.path();
+
+        //Create SVG element
+        var svg = d3.select("body").append("svg").attr({
+            width: w,
+            height: h
+        });
+
+        //Load in GeoJSON data
+        d3.json("http://localhost:8000/counties-filtered.json", function(json) {
+
+            //Bind data and create one path per GeoJSON feature
+            svg.selectAll("path")
+                .data(json.features)
+                .enter()
+                .append("path")
+                .attr("d", path)
+                .attr("fill", "#666666");
+
+        });
+    </script>
+</body>
+
+</html>

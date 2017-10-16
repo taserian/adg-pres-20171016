@@ -1,0 +1,40 @@
+<html>
+
+<head>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <style>
+        path {
+            fill: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>topojson Counties</h1>
+    <code>$ topojson -o topo-counties.json counties.json</code>
+
+    <script>
+        var width = window.innerWidth,
+            height = window.innerHeight;
+
+        var path = d3.geo.path();
+
+        var svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        d3.json("http://localhost:8010/topo-counties.json", function(error, topology) {
+            if (error) throw error;
+
+            svg.selectAll("path")
+                .data(topojson.feature(topology, topology.objects.counties).features)
+                .enter().append("path")
+                .attr("d", path);
+        });
+    </script>
+
+
+</body>
+
+</html>

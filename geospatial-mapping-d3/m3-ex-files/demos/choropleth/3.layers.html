@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+    .land {
+        fill: #e5e5e5;
+        stroke: #fff;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+    }
+    
+    .border {
+        stroke: #666;
+        fill: none;
+    }
+    
+    .county {
+        stroke: #999;
+        stroke-width: .5;
+    }
+</style>
+
+<body>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script>
+        var width = 960,
+            height = 600;
+
+        var path = d3.geo.path()
+            .projection(null);
+
+        var svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        d3.json("http://localhost:8101/us.json", function(error, us) {
+            if (error) throw error;
+
+            //draw base
+            svg.append("path")
+                .datum(topojson.feature(us, us.objects.nation))
+                .attr("class", "land")
+                .attr("d", path);
+
+            //add state borders
+            svg.append("path")
+                .datum(topojson.mesh(us, us.objects.states, function(a, b) {
+                    return a !== b;
+                }))
+                .attr("class", "border state")
+                .attr("d", path);
+
+            //add county borders
+            svg.append("path")
+                .datum(topojson.mesh(us, us.objects.counties, function(a, b) {
+                    return a !== b;
+                }))
+                .attr("class", "border county")
+                .attr("d", path);
+
+        });
+    </script>

@@ -1,0 +1,32 @@
+.land {
+	fill: #e5e5e5;
+}
+
+.border {
+	fill: none;
+	stroke: #fff;
+	stroke-linejoin: round;
+	stroke-linecap: round;
+}
+
+.bubble {
+	fill: #F15B2A; /*  PS Orange */
+	fill-opacity: .5;
+	stroke: #fff;
+	stroke-width: .5px;
+}
+
+.bubble :hover {
+	stroke: #000;
+}
+
+.legend circle {
+	fill: none;
+	stroke: #ccc;
+}
+
+.legend text {
+	fill: #777;
+	font: 10px sans-serif;
+	text-anchor: middle;
+}

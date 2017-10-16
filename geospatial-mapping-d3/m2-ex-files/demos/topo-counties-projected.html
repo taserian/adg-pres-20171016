@@ -1,0 +1,46 @@
+<html>
+
+<head>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <style>
+        path {
+            fill: none;
+            stroke: #333;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>topojson Counties w/ Projection</h1>
+    <code>$ topojson -o topo-counties-projected.json --projection='width = 960, height = 600, d3.geo.albersUsa() .scale(1280) .translate([width / 2, height / 2])' counties.json</code>
+    <br/>
+
+    <script>
+        var width = 960,
+            height = 600;
+
+        //add the null projection to the path
+        //the topojson already contains a projection but you need a placeholder
+        var path = d3.geo.path()
+            .projection(null);
+
+        var svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        d3.json("http://localhost:8010/topo-counties-projected.json", function(error, us) {
+            if (error) return console.error(error);
+
+            svg.append("path")
+                .datum(topojson.mesh(us))
+                .attr("d", path);
+        });
+    </script>
+
+
+</body>
+
+</html>
